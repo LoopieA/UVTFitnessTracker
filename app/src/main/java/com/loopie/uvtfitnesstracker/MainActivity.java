@@ -1,5 +1,6 @@
 package com.loopie.uvtfitnesstracker;
 
+import android.app.ListActivity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,11 +12,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity  {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
@@ -53,6 +57,9 @@ public class MainActivity extends AppCompatActivity  {
                 return true;
             }
         });
+
+
+
     }
 
     @Override

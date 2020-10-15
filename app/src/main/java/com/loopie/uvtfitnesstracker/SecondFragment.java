@@ -22,10 +22,10 @@ public class SecondFragment extends Fragment {
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        Exercise exercise1 = new Exercise("Squat");
-        Exercise exercise2 = new Exercise("Bench");
-        Exercise exercise3 = new Exercise("Deadlift");
-        Exercise exercise4 = new Exercise("OHP");
+        Exercise exercise1 = new Exercise("Squat", "drawable://" + R.drawable.squat2);
+        Exercise exercise2 = new Exercise("Bench", "");
+        Exercise exercise3 = new Exercise("Deadlift", "");
+        Exercise exercise4 = new Exercise("OHP", "");
         ArrayList<Exercise> peopleList = new ArrayList<>();
         peopleList.add(exercise1);
         peopleList.add(exercise2);

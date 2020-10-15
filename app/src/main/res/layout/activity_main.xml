@@ -40,6 +40,7 @@
                 app:title="@string/app_name"
                 app:menu="@menu/activity_main_drawer"
                 app:navigationIcon="@drawable/ic_baseline_menu_24"
+                app:titleTextColor="@color/white"
                 style="@style/Widget.MaterialComponents.Toolbar.Primary" />
 
         </com.google.android.material.appbar.AppBarLayout>

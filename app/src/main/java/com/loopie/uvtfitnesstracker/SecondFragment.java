@@ -1,25 +1,22 @@
 package com.loopie.uvtfitnesstracker;
-
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.MissingResourceException;
 
@@ -30,6 +27,7 @@ public class SecondFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+
         return inflater.inflate(R.layout.fragment_second, container, false);
     }
 
@@ -41,8 +39,8 @@ public class SecondFragment extends Fragment {
                 JSONObject jsonObject = ja.getJSONObject(i);
                 try {
                     try {
-                        int id = getActivity().getResources().getIdentifier(jsonObject.getJSONArray("png").getString(0), "drawable", getActivity().getPackageName());
-                        Exercise exercise = new Exercise(jsonObject.getString("title"), "drawable://" + id);
+                        //int id = getActivity().getResources().getIdentifier(jsonObject.getJSONArray("png").getString(0), "drawable", getActivity().getPackageName());
+                        Exercise exercise = new Exercise(jsonObject.getString("title"), "file:///android_asset/" + jsonObject.getJSONArray("png").getString(0) + ".png");
                         peopleList.add(exercise);
                     } catch (MissingResourceException ex) {
 
@@ -54,15 +52,7 @@ public class SecondFragment extends Fragment {
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
-//        Exercise exercise1 = new Exercise("Squat", "drawable://" + R.drawable.squat2);
-//        Exercise exercise2 = new Exercise("Bench", "drawable://" + R.drawable.benchpress);
-//        Exercise exercise3 = new Exercise("Deadlift", "drawable://" + R.drawable.deadlift);
-//        Exercise exercise4 = new Exercise("OHP", "drawable://" + R.drawable.w0084);
-//
-//        peopleList.add(exercise1);
-//        peopleList.add(exercise2);
-//        peopleList.add(exercise3);
-//        peopleList.add(exercise4);
+
         ListView mListView = (ListView) getView().findViewById(R.id.listView);
         ExerciseListAdapter adapter = new ExerciseListAdapter(getActivity(), R.layout.adapter_view_layout, peopleList);
         mListView.setAdapter(adapter);

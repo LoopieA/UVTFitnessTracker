@@ -1,8 +1,19 @@
 package com.loopie.uvtfitnesstracker;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "exercise_table")
 public class Exercise {
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "name")
     private String name;
-    private String imgURL;
+    @NonNull
+    @ColumnInfo(name = "imgURL")
+    public String imgURL;
 
     public Exercise(String name, String imgURL) {
         this.name = name;
@@ -10,18 +21,20 @@ public class Exercise {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
-
-    public String getimgURL() {
-        return imgURL;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getimgURL() {
+        return this.imgURL;
+    }
     public void setimgURL(String imgURL) {
         this.imgURL = imgURL;
     }
+
+
+
+
 }

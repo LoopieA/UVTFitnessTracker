@@ -3,10 +3,10 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundListColor">
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fastScrollEnabled="true"
         android:persistentDrawingCache="scrolling"
         android:minHeight="100dp"

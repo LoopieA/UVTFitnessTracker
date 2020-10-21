@@ -1,5 +1,6 @@
 package com.loopie.uvtfitnesstracker;
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,51 +9,58 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+import java.util.List;
 
-public class ExerciseListAdapter extends ArrayAdapter<Exercise> {
-    private static final String TAG = "ExerciseListAdapter";
+public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ExerciseViewHolder> {
 
-    private Context mContext;
-    private int mResource;
-
-    /**
-     * Holds variables in a View
-     */
-    private static class ViewHolder {
-        TextView name;
-        ImageView image;
+    class ExerciseViewHolder extends RecyclerView.ViewHolder {
+        private final TextView wordItemView;
+        private final ImageView imageView;
+        private ExerciseViewHolder(View itemView) {
+            super(itemView);
+            wordItemView = itemView.findViewById(R.id.textView1);
+            imageView = itemView.findViewById(R.id.image);
+        }
     }
 
-    public ExerciseListAdapter(Context context, int resource, ArrayList<Exercise> objects) {
-        super(context, resource, objects);
-        mContext = context;
-        mResource = resource;
-    }
+    private final LayoutInflater mInflater;
+    private List<Exercise> mWords; // Cached copy of words
 
-    @NonNull
+    ExerciseListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        String name = getItem(position).getName();
-        String imgURL = getItem(position).getimgURL();
-        Exercise person = new Exercise(name, imgURL);
+    public ExerciseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = mInflater.inflate(R.layout.adapter_view_layout, parent, false);
+        return new ExerciseViewHolder(itemView);
+    }
 
-        //ViewHolder object
-        ViewHolder holder;
+    @Override
+    public void onBindViewHolder(ExerciseViewHolder holder, int position) {
+        if (mWords != null) {
+            Exercise current = mWords.get(position);
+            holder.wordItemView.setText(current.getName());
+            Picasso.get().load(current.getimgURL()).into(holder.imageView);
+        } else {
+            // Covers the case of data not being ready yet.
+            holder.wordItemView.setText("No Exercise");
+        }
+    }
 
-        if(convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(mContext);
-            convertView = inflater.inflate(mResource, parent, false);
-            holder = new ViewHolder();
-            holder.name = (TextView) convertView.findViewById(R.id.textView1);
-            holder.image = (ImageView) convertView.findViewById(R.id.image);
-            convertView.setTag(holder);
-        } else
-            holder = (ViewHolder) convertView.getTag();
+    void setWords(List<Exercise> words){
+        mWords = words;
+        notifyDataSetChanged();
+    }
 
-        holder.name.setText(person.getName());
-        Picasso.get().load(imgURL).into(holder.image);
-        return convertView;
+    // getItemCount() is called many times, and when it is first called,
+    // mWords has not been updated (means initially, it's null, and we can't return null).
+    @Override
+    public int getItemCount() {
+        if (mWords != null)
+            return mWords.size();
+        else return 0;
     }
 }

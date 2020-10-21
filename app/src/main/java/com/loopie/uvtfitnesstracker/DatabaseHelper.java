@@ -22,9 +22,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        Log.e("checkDB", "exec");
+        String createExercisesTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL1  + " varchar(255), " + COL2 + " varchar(255))";
-        db.execSQL(createTable);
+        String createProgramsTable = "CREATE TABLE programs_table (ID INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(255))";
+        db.execSQL(createExercisesTable);
+        db.execSQL(createProgramsTable);
     }
 
     @Override
@@ -33,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String name, String imgURL) {
+    public boolean addDataToExercises(String name, String imgURL) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL1, name);
@@ -51,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Returns all the data from database
      * @return
      */
-    public Cursor getData(){
+    public Cursor getDataExercises(){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME;
         Cursor data = db.rawQuery(query, null);

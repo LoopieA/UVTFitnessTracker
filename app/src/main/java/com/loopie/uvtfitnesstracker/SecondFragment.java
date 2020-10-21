@@ -1,4 +1,5 @@
 package com.loopie.uvtfitnesstracker;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -8,10 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,13 +27,18 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.MissingResourceException;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 public class SecondFragment extends Fragment {
     private static int FIRST_ELEMENT = 0;
     DatabaseHelper mDatabaseHelper;
+    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    private ExerciseViewModel mExerciseViewModel;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -37,40 +49,52 @@ public class SecondFragment extends Fragment {
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        SharedPreferences prefs = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
-        String firstStart = prefs.getString("firstStart", null);
-        mDatabaseHelper = new DatabaseHelper(getActivity());
-        if(firstStart == null) {
-            try {
-                JSONArray ja = new JSONArray(loadJSONFromAsset());
-                for (int i = 0; i < ja.length(); i++) {
-                    JSONObject jsonObject = ja.getJSONObject(i);
-                    try {
-                        try {
-                            mDatabaseHelper.addData(jsonObject.getString("title"), "file:///android_asset/" + jsonObject.getJSONArray("png").getString(0) + ".png");
-                        } catch (MissingResourceException ex) {
-
-                        }
-                    } catch (JSONException ex) {
-                        Log.e("jsontest", "PNG NOT FOUND");
-                    }
-                }
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("firstStart", "1");
-                editor.apply();
-            } catch (JSONException ex) {
-                ex.printStackTrace();
+        RecyclerView recyclerView = getActivity().findViewById(R.id.listView);
+        final ExerciseListAdapter adapter = new ExerciseListAdapter(getActivity());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mExerciseViewModel = new ViewModelProvider(getActivity()).get(ExerciseViewModel.class);
+        mExerciseViewModel.getAllWords().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
+            @Override
+            public void onChanged(@Nullable final List<Exercise> words) {
+                // Update the cached copy of the words in the adapter.
+                adapter.setWords(words);
             }
-        }
-        Cursor data = mDatabaseHelper.getData();
-        ArrayList<Exercise> peopleList = new ArrayList<>();
-        while(data.moveToNext()){
-            Exercise exercise = new Exercise(data.getString(1), data.getString(2));
-            peopleList.add(exercise);
-        }
-        ListView mListView = (ListView) getView().findViewById(R.id.listView);
-        ExerciseListAdapter adapter = new ExerciseListAdapter(getActivity(), R.layout.adapter_view_layout, peopleList);
-        mListView.setAdapter(adapter);
+        });
+//        SharedPreferences prefs = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
+//        String firstStart = prefs.getString("firstStart", null);
+//        mDatabaseHelper = new DatabaseHelper(getActivity());
+//        if(firstStart == null) {
+//            try {
+//                JSONArray ja = new JSONArray(loadJSONFromAsset());
+//                for (int i = 0; i < ja.length(); i++) {
+//                    JSONObject jsonObject = ja.getJSONObject(i);
+//                    try {
+//                        try {
+//                            mDatabaseHelper.addDataToExercises(jsonObject.getString("title"), "file:///android_asset/" + jsonObject.getJSONArray("png").getString(0) + ".png");
+//                        } catch (MissingResourceException ex) {
+//
+//                        }
+//                    } catch (JSONException ex) {
+//                        Log.e("jsontest", "PNG NOT FOUND");
+//                    }
+//                }
+//                SharedPreferences.Editor editor = prefs.edit();
+//                editor.putString("firstStart", "1");
+//                editor.apply();
+//            } catch (JSONException ex) {
+//                ex.printStackTrace();
+//            }
+//        }
+//        Cursor data = mDatabaseHelper.getDataExercises();
+//        ArrayList<Exercise> peopleList = new ArrayList<>();
+//        while(data.moveToNext()){
+//            Exercise exercise = new Exercise(data.getString(1), data.getString(2));
+//            peopleList.add(exercise);
+//        }
+//        ListView mListView = (ListView) getView().findViewById(R.id.listView);
+//        ExerciseListAdapter adapter = new ExerciseListAdapter(getActivity(), R.layout.adapter_view_layout, peopleList);
+//        mListView.setAdapter(adapter);
         super.onViewCreated(view, savedInstanceState);
     }
 

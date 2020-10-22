@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class SecondFragment extends Fragment {
+public class ExercisesFragment extends Fragment {
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
     private ExerciseViewModel mExerciseViewModel;
 

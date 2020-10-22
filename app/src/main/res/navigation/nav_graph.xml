@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.loopie.uvtfitnesstracker.fragments.SecondFragment"
+        android:name="com.loopie.uvtfitnesstracker.fragments.ExercisesFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 

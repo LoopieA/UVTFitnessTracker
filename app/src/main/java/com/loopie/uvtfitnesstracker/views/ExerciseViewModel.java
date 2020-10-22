@@ -1,9 +1,13 @@
-package com.loopie.uvtfitnesstracker;
+package com.loopie.uvtfitnesstracker.views;
 
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+
+import com.loopie.uvtfitnesstracker.models.Exercise;
+import com.loopie.uvtfitnesstracker.repo.ExerciseRepo;
+
 import java.util.List;
 
 public class ExerciseViewModel extends AndroidViewModel {
@@ -14,10 +18,10 @@ public class ExerciseViewModel extends AndroidViewModel {
     public ExerciseViewModel (Application application) {
         super(application);
         mRepository = new ExerciseRepo(application);
-        mAllExercises = mRepository.getAllWords();
+        mAllExercises = mRepository.getAllExercises();
     }
 
-    LiveData<List<Exercise>> getAllWords() { return mAllExercises; }
+    public LiveData<List<Exercise>> getAllExercises() { return mAllExercises; }
 
     public void insert(Exercise exercise) { mRepository.insert(exercise); }
 }

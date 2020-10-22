@@ -1,18 +1,16 @@
 package com.loopie.uvtfitnesstracker;
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.loopie.uvtfitnesstracker.models.Exercise;
 import com.squareup.picasso.Picasso;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ExerciseViewHolder> {
@@ -28,9 +26,9 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     }
 
     private final LayoutInflater mInflater;
-    private List<Exercise> mWords; // Cached copy of words
+    private List<Exercise> mExercises; // Cached copy of words
 
-    ExerciseListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+    public ExerciseListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
 
     @Override
     public ExerciseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,8 +38,8 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
     @Override
     public void onBindViewHolder(ExerciseViewHolder holder, int position) {
-        if (mWords != null) {
-            Exercise current = mWords.get(position);
+        if (mExercises != null) {
+            Exercise current = mExercises.get(position);
             holder.wordItemView.setText(current.getName());
             Picasso.get().load(current.getimgURL()).into(holder.imageView);
         } else {
@@ -50,8 +48,8 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         }
     }
 
-    void setWords(List<Exercise> words){
-        mWords = words;
+    public void setExercises(List<Exercise> exercises){
+        mExercises = exercises;
         notifyDataSetChanged();
     }
 
@@ -59,8 +57,8 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     // mWords has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
-        if (mWords != null)
-            return mWords.size();
+        if (mExercises != null)
+            return mExercises.size();
         else return 0;
     }
 }

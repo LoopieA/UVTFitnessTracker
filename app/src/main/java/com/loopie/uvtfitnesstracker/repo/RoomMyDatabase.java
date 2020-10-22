@@ -1,4 +1,4 @@
-package com.loopie.uvtfitnesstracker;
+package com.loopie.uvtfitnesstracker.repo;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,6 +8,9 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import com.loopie.uvtfitnesstracker.dao.ExerciseDao;
+import com.loopie.uvtfitnesstracker.models.Exercise;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +30,7 @@ public abstract class RoomMyDatabase extends RoomDatabase {
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static RoomMyDatabase getDatabase(final Context context) {
+    public static RoomMyDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (RoomMyDatabase.class) {
                 if (INSTANCE == null) {
@@ -37,7 +40,6 @@ public abstract class RoomMyDatabase extends RoomDatabase {
                                 @Override
                                 public void onOpen(@NonNull SupportSQLiteDatabase db) {
                                     super.onOpen(db);
-
                                     // If you want to keep data through app restarts,
                                     // comment out the following block
                                     databaseWriteExecutor.execute(() -> {

@@ -10,7 +10,11 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.loopie.uvtfitnesstracker.dao.ExerciseDao;
+import com.loopie.uvtfitnesstracker.dao.ExerciseProgramsDao;
+import com.loopie.uvtfitnesstracker.dao.ProgramsDao;
 import com.loopie.uvtfitnesstracker.models.Exercise;
+import com.loopie.uvtfitnesstracker.models.ExerciseProgramsMany;
+import com.loopie.uvtfitnesstracker.models.Programs;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,9 +26,11 @@ import java.util.MissingResourceException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Exercise.class}, version = 1, exportSchema = false)
+@Database(entities = {Exercise.class, ExerciseProgramsMany.class, Programs.class}, version = 1, exportSchema = false)
 public abstract class RoomMyDatabase extends RoomDatabase {
     public abstract ExerciseDao exerciseDao();
+    public abstract ProgramsDao programsDao();
+    public abstract ExerciseProgramsDao exerciseProgramsDao();
     private static volatile RoomMyDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
@@ -46,7 +52,12 @@ public abstract class RoomMyDatabase extends RoomDatabase {
                                         // Populate the database in the background.
                                         // If you want to start with more words, just add them.
                                         ExerciseDao dao = INSTANCE.exerciseDao();
-                                        dao.deleteAll();
+                                        ExerciseProgramsDao exprogDao = INSTANCE.exerciseProgramsDao();
+                                        //dao.deleteAll();
+                                        ExerciseProgramsMany ex1 = new ExerciseProgramsMany(1,1);
+                                        ExerciseProgramsMany ex2 = new ExerciseProgramsMany(2,2);
+                                        exprogDao.insert(ex1);
+                                        exprogDao.insert(ex2);
 
                                         try {
                                             JSONArray ja = new JSONArray(loadJSONFromAsset(context));

@@ -8,15 +8,21 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "programs_table")
 public class Programs {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "programsid")
     private long programsid;
     @NonNull
     @ColumnInfo(name = "name")
     private String name;
 
-    public Programs(long id, String name) {
-        this.programsid = id;
+    public Programs(long programsid, String name) {
+        this.programsid = programsid;
         this.name = name;
+    }
+
+    public long getProgramsid() {
+        return this.programsid;
+    }
+    public void setProgramsid(long programsid) {
+        this.programsid = programsid;
     }
 
     public String getName() {

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopie.uvtfitnesstracker.models.Exercise;
-import com.loopie.uvtfitnesstracker.ExerciseListAdapter;
+import com.loopie.uvtfitnesstracker.adapters.ExerciseListAdapter;
 import com.loopie.uvtfitnesstracker.views.ExerciseViewModel;
 import com.loopie.uvtfitnesstracker.R;
 
@@ -24,6 +24,7 @@ import java.util.List;
 public class ExercisesFragment extends Fragment {
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
     private ExerciseViewModel mExerciseViewModel;
+    //private ExerciseProgramsViewModel mExerciseViewModel;
 
     @Override
     public View onCreateView(
@@ -47,6 +48,18 @@ public class ExercisesFragment extends Fragment {
                 adapter.setExercises(exercises);
             }
         });
+//        RecyclerView recyclerView = getActivity().findViewById(R.id.listView);
+//        final ExerciseProgramsListAdapter adapter = new ExerciseProgramsListAdapter(getActivity());
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        mExerciseViewModel = new ViewModelProvider(getActivity()).get(ExerciseProgramsViewModel.class);
+//        mExerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+//            @Override
+//            public void onChanged(@Nullable final List<String> exercises) {
+//                // Update the cached copy of the words in the adapter.
+//                adapter.setExercises(exercises);
+//            }
+//        });
         super.onViewCreated(view, savedInstanceState);
     }
 

@@ -1,4 +1,4 @@
-package com.loopie.uvtfitnesstracker;
+package com.loopie.uvtfitnesstracker.adapters;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.loopie.uvtfitnesstracker.R;
 import com.loopie.uvtfitnesstracker.models.Exercise;
 import com.squareup.picasso.Picasso;
 

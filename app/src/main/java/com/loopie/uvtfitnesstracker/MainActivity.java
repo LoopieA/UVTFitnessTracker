@@ -8,6 +8,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +19,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.loopie.uvtfitnesstracker.fragments.ExercisesFragment;
+import com.loopie.uvtfitnesstracker.fragments.ProgramsFragment;
 
 import java.util.ArrayList;
 
@@ -43,23 +48,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
+                Fragment fragment;
+                FragmentManager fragmentManager = getSupportFragmentManager();
                 switch(id)
                 {
                     case R.id.nav_item_one:
-                        Toast.makeText(MainActivity.this, "My Account",Toast.LENGTH_SHORT).show();break;
+                        fragment = new ProgramsFragment();
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.content_main, fragment)
+                                .commit();
+                        break;
                     case R.id.nav_item_two:
-                        Toast.makeText(MainActivity.this, "Settings",Toast.LENGTH_SHORT).show();break;
+                        fragment = new ExercisesFragment();
+                        fragmentManager = getSupportFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.content_main, fragment)
+                                .commit();
+                        break;
                     case R.id.nav_item_three:
                         Toast.makeText(MainActivity.this, "My Cart",Toast.LENGTH_SHORT).show();break;
                     default:
                         return true;
                 }
+                dl.closeDrawers();
                 return true;
             }
         });
-
-
-
     }
 
     @Override

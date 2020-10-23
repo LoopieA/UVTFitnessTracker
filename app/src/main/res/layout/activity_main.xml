@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -12,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph" />
+        app:navGraph="@navigation/nav_graph"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <com.google.android.material.navigation.NavigationView
@@ -41,7 +41,9 @@
                 app:menu="@menu/activity_main_drawer"
                 app:navigationIcon="@drawable/ic_baseline_menu_24"
                 app:titleTextColor="@color/white"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary" />
+                
+                />
+
 
         </com.google.android.material.appbar.AppBarLayout>
 

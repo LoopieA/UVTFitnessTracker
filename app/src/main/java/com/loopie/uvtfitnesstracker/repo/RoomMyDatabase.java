@@ -53,9 +53,12 @@ public abstract class RoomMyDatabase extends RoomDatabase {
                                         // If you want to start with more words, just add them.
                                         ExerciseDao dao = INSTANCE.exerciseDao();
                                         ExerciseProgramsDao exprogDao = INSTANCE.exerciseProgramsDao();
+                                        ProgramsDao progDao = INSTANCE.programsDao();
                                         //dao.deleteAll();
                                         ExerciseProgramsMany ex1 = new ExerciseProgramsMany(1,1);
                                         ExerciseProgramsMany ex2 = new ExerciseProgramsMany(2,2);
+                                        Programs programtest = new Programs(1, "Upper/Lower Program");
+                                        progDao.insert(programtest);
                                         exprogDao.insert(ex1);
                                         exprogDao.insert(ex2);
 

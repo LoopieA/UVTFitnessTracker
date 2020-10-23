@@ -32,7 +32,7 @@ public class ExercisesFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        return inflater.inflate(R.layout.fragment_second, container, false);
+        return inflater.inflate(R.layout.exercises_fragment, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

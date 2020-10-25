@@ -58,16 +58,19 @@ public abstract class RoomMyDatabase extends RoomDatabase {
                                         ExerciseProgramsDao exprogDao = INSTANCE.exerciseProgramsDao();
                                         ProgramsDao progDao = INSTANCE.programsDao();
                                         SubProgramsDao subProgDao = INSTANCE.subProgramsDao();
+                                        ExerciseProgramsDao exProgramsDao = INSTANCE.exerciseProgramsDao();
                                         //dao.deleteAll();
                                         ExerciseProgramsMany ex1 = new ExerciseProgramsMany(1,1);
                                         ExerciseProgramsMany ex2 = new ExerciseProgramsMany(2,2);
                                         Programs programtest = new Programs(1, "Upper/Lower Program");
                                         SubPrograms subprogram1 = new SubPrograms("Monday", 1);
+                                        ExerciseProgramsMany emany = new ExerciseProgramsMany(1, 1);
                                         subprogram1.setsubprogramsid(2);
                                         progDao.insert(programtest);
                                         exprogDao.insert(ex1);
                                         exprogDao.insert(ex2);
                                         subProgDao.insert(subprogram1);
+                                        exProgramsDao.insert(emany);
 
                                         try {
                                             JSONArray ja = new JSONArray(loadJSONFromAsset(context));

@@ -3,11 +3,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopie.uvtfitnesstracker.R;
+import com.loopie.uvtfitnesstracker.models.Exercise;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -15,14 +18,16 @@ public class ExerciseProgramsListAdapter extends RecyclerView.Adapter<ExercisePr
 
     class ExerciseProgramsViewHolder extends RecyclerView.ViewHolder {
         private final TextView wordItemView;
+        private final ImageView imageView;
         private ExerciseProgramsViewHolder(View itemView) {
             super(itemView);
             wordItemView = itemView.findViewById(R.id.textView1);
+            imageView = itemView.findViewById(R.id.image);
         }
     }
 
     private final LayoutInflater mInflater;
-    private List<String> mExercises; // Cached copy of words
+    private List<Exercise> mExercises; // Cached copy of words
 
     public ExerciseProgramsListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
 
@@ -35,15 +40,16 @@ public class ExerciseProgramsListAdapter extends RecyclerView.Adapter<ExercisePr
     @Override
     public void onBindViewHolder(ExerciseProgramsViewHolder holder, int position) {
         if (mExercises != null) {
-            String current = mExercises.get(position);
-            holder.wordItemView.setText((String.valueOf(current)));
+            Exercise current = mExercises.get(position);
+            holder.wordItemView.setText(current.getName());
+            Picasso.get().load(current.getimgURL()).into(holder.imageView);
         } else {
             // Covers the case of data not being ready yet.
             holder.wordItemView.setText("Loading");
         }
     }
 
-    public void setExercises(List<String> exercises){
+    public void setExercises(List<Exercise> exercises){
         mExercises = exercises;
         notifyDataSetChanged();
     }

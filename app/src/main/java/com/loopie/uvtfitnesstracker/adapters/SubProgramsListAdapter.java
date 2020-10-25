@@ -1,30 +1,31 @@
 package com.loopie.uvtfitnesstracker.adapters;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopie.uvtfitnesstracker.R;
+import com.loopie.uvtfitnesstracker.fragments.ProgramExercisesFragment;
+import com.loopie.uvtfitnesstracker.fragments.SubProgramsFragment;
 import com.loopie.uvtfitnesstracker.models.SubPrograms;
 
 import java.util.List;
 
 public class SubProgramsListAdapter extends RecyclerView.Adapter<SubProgramsListAdapter.SubProgramsViewHolder> {
 
-    class SubProgramsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class SubProgramsViewHolder extends RecyclerView.ViewHolder {
         private final TextView wordItemView;
         private SubProgramsViewHolder(View itemView) {
             super(itemView);
             wordItemView = itemView.findViewById(R.id.textView1);
-        }
-
-        @Override
-        public void onClick(View v) {
-            Log.e("test", "suh");
         }
     }
 
@@ -44,6 +45,20 @@ public class SubProgramsListAdapter extends RecyclerView.Adapter<SubProgramsList
         if (mSubPrograms != null) {
             SubPrograms current = mSubPrograms.get(position);
             holder.wordItemView.setText(current.getName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Fragment fragment = new ProgramExercisesFragment();
+                    Bundle arguments = new Bundle();
+                    arguments.putLong("exID" , current.getsubprogramsid());
+                    fragment.setArguments(arguments);
+                    FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.content_main, fragment)
+                            .addToBackStack("tag")
+                            .commit();
+                }
+            });
         } else {
             // Covers the case of data not being ready yet.
             holder.wordItemView.setText("No Program");

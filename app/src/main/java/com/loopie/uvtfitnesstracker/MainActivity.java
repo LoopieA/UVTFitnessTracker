@@ -30,9 +30,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(toolbar);
+
         dl = (DrawerLayout)findViewById(R.id.drawer_layout);
         setEdgeDrawerLayout(this, 0.5f);
         t = new ActionBarDrawerToggle(this, dl, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -81,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         return super.onOptionsItemSelected(item);
     }
+
+
 
     public void setEdgeDrawerLayout(Activity activity, float displayWidthPercentage) {
         try {

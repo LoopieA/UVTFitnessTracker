@@ -7,7 +7,9 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.loopie.uvtfitnesstracker.models.Exercise;
 import com.loopie.uvtfitnesstracker.models.ExerciseProgramsMany;
+import com.loopie.uvtfitnesstracker.models.ProgramsWithExercises;
 
 import java.util.List;
 
@@ -17,6 +19,6 @@ public interface ExerciseProgramsDao {
     void insert(ExerciseProgramsMany exerciseprograms);
 
     @Transaction
-    @Query("SELECT exercise_table.name from exercise_table JOIN exercise_programs_table ON exercise_table.id_exercise = exercise_programs_table.id_exercise")
-    LiveData<List<String>> getProgramsWithExercises();
+    @Query("SELECT * from exercise_table JOIN exercise_programs_table ON exercise_table.id_exercise = exercise_programs_table.id_exercise WHERE exercise_programs_table.id_exercise=:exID")
+    LiveData<List<Exercise>> getProgramsWithExercises(long exID);
 }

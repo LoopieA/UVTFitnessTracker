@@ -15,15 +15,18 @@ import java.util.List;
 public class ExerciseProgramsViewModel extends AndroidViewModel {
     private ExerciseProgramsRepo mRepository;
 
-    private LiveData<List<String>> mAllExercises;
+    private LiveData<List<Exercise>> mAllExercises;
 
     public ExerciseProgramsViewModel(Application application) {
         super(application);
         mRepository = new ExerciseProgramsRepo(application);
-        mAllExercises = mRepository.getAllExercisePrograms();
+
     }
 
-    public LiveData<List<String>> getAllExercises() { return mAllExercises; }
+    public LiveData<List<Exercise>> getAllExercises(long exID) {
+        mAllExercises = mRepository.getAllExercisePrograms(exID);
+        return mAllExercises;
+    }
 
     public void insert(ExerciseProgramsMany exercise) { mRepository.insert(exercise); }
 }

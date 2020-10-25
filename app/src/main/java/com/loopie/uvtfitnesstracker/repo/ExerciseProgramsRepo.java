@@ -14,16 +14,15 @@ import java.util.List;
 
 public class ExerciseProgramsRepo {
     private ExerciseProgramsDao mExerciseProgramsDao;
-    private LiveData<List<String>> mAllExercisePrograms;
+    private LiveData<List<Exercise>> mAllExercisePrograms;
 
     public ExerciseProgramsRepo(Application application) {
-
         RoomMyDatabase db = RoomMyDatabase.getDatabase(application);
         mExerciseProgramsDao = db.exerciseProgramsDao();
-        mAllExercisePrograms = mExerciseProgramsDao.getProgramsWithExercises();
     }
 
-    public LiveData<List<String>> getAllExercisePrograms() {
+    public LiveData<List<Exercise>> getAllExercisePrograms(long exID) {
+        mAllExercisePrograms = mExerciseProgramsDao.getProgramsWithExercises(exID);
         return mAllExercisePrograms;
     }
 

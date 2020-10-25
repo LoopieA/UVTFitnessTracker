@@ -8,7 +8,6 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import com.loopie.uvtfitnesstracker.models.ExerciseProgramsMany;
-import com.loopie.uvtfitnesstracker.models.ProgramsWithExercises;
 
 import java.util.List;
 

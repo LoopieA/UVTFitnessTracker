@@ -1,17 +1,22 @@
 package com.loopie.uvtfitnesstracker.adapters;
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopie.uvtfitnesstracker.R;
-import com.loopie.uvtfitnesstracker.models.Exercise;
+import com.loopie.uvtfitnesstracker.fragments.ExercisesFragment;
+import com.loopie.uvtfitnesstracker.fragments.ProgramsFragment;
+import com.loopie.uvtfitnesstracker.fragments.SubProgramsFragment;
 import com.loopie.uvtfitnesstracker.models.Programs;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -45,6 +50,17 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
             // Covers the case of data not being ready yet.
             holder.wordItemView.setText("No Program");
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new SubProgramsFragment();
+                FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_main, fragment)
+                        .addToBackStack("tag")
+                        .commit();
+            }
+        });
     }
 
     public void setPrograms(List<Programs> programs){

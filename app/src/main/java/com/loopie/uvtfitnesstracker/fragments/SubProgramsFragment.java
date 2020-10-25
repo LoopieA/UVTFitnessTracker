@@ -33,12 +33,14 @@ public class SubProgramsFragment extends Fragment {
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        Bundle arguments = getArguments();
+        long fkProgramID = arguments.getLong("fkID");
         RecyclerView recyclerView = getActivity().findViewById(R.id.listView);
         final SubProgramsListAdapter adapter = new SubProgramsListAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mSubProgramsViewModel = new ViewModelProvider(getActivity()).get(SubProgramsViewModel.class);
-        mSubProgramsViewModel.getsubProgramsById(1).observe(getViewLifecycleOwner(), new Observer<List<SubPrograms>>() {
+        mSubProgramsViewModel.getsubProgramsById(fkProgramID).observe(getViewLifecycleOwner(), new Observer<List<SubPrograms>>() {
             @Override
             public void onChanged(@Nullable final List<SubPrograms> subprograms) {
                 // Update the cached copy of the words in the adapter.

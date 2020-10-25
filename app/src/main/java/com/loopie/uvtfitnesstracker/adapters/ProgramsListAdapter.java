@@ -46,21 +46,25 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
         if (mPrograms != null) {
             Programs current = mPrograms.get(position);
             holder.wordItemView.setText(current.getName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Fragment fragment = new SubProgramsFragment();
+                    Bundle arguments = new Bundle();
+                    arguments.putLong("fkID" , current.getProgramsid());
+                    fragment.setArguments(arguments);
+                    FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.content_main, fragment)
+                            .addToBackStack("tag")
+                            .commit();
+                }
+            });
         } else {
             // Covers the case of data not being ready yet.
             holder.wordItemView.setText("No Program");
         }
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = new SubProgramsFragment();
-                FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.content_main, fragment)
-                        .addToBackStack("tag")
-                        .commit();
-            }
-        });
+
     }
 
     public void setPrograms(List<Programs> programs){

@@ -13,8 +13,7 @@ public class Programs {
     @ColumnInfo(name = "name")
     private String name;
 
-    public Programs(long programsid, String name) {
-        this.programsid = programsid;
+    public Programs(String name) {
         this.name = name;
     }
 

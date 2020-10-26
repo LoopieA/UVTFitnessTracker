@@ -1,9 +1,14 @@
 package com.loopie.uvtfitnesstracker.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,9 +18,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.loopie.uvtfitnesstracker.R;
 import com.loopie.uvtfitnesstracker.adapters.ProgramsListAdapter;
 import com.loopie.uvtfitnesstracker.models.Programs;
+import com.loopie.uvtfitnesstracker.models.SubPrograms;
 import com.loopie.uvtfitnesstracker.views.ProgramsViewModel;
 import java.util.List;
 
@@ -32,6 +39,7 @@ public class ProgramsFragment extends Fragment {
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         RecyclerView recyclerView = getActivity().findViewById(R.id.listView);
         final ProgramsListAdapter adapter = new ProgramsListAdapter(getActivity());
         recyclerView.setAdapter(adapter);
@@ -45,5 +53,43 @@ public class ProgramsFragment extends Fragment {
             }
         });
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.subprogramexercises_add_bar, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.add_exercise:
+                final EditText edittext = new EditText(getContext());
+                new MaterialAlertDialogBuilder(getContext())
+                        .setTitle("Create New Program")
+                        .setView(edittext)
+                        .setCancelable(false)
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(final DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(final DialogInterface dialog, int which) {
+                                final String content = edittext.getText().toString();
+                                Programs program = new Programs(content);
+                                mProgramsViewModel.insert(program);
+                            }
+                        })
+                        .create().show();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

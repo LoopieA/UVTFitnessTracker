@@ -59,9 +59,10 @@ public abstract class RoomMyDatabase extends RoomDatabase {
                                         ProgramsDao progDao = INSTANCE.programsDao();
                                         SubProgramsDao subProgDao = INSTANCE.subProgramsDao();
                                         //dao.deleteAll();
-                                        Programs programtest = new Programs(1, "Upper/Lower Program");
+                                        Programs programtest = new Programs("Upper/Lower Program");
                                         SubPrograms subprogram1 = new SubPrograms("Monday", 1);
                                         SubPrograms subprogram2 = new SubPrograms("Tuesday", 1);
+                                        programtest.setProgramsid(1);
                                         progDao.insert(programtest);
                                         subprogram1.setsubprogramsid(2);
                                         subprogram2.setsubprogramsid(3);

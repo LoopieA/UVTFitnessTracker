@@ -20,11 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopie.uvtfitnesstracker.R;
 import com.loopie.uvtfitnesstracker.adapters.ExerciseProgramsListAdapter;
-import com.loopie.uvtfitnesstracker.adapters.SubProgramsListAdapter;
 import com.loopie.uvtfitnesstracker.models.Exercise;
-import com.loopie.uvtfitnesstracker.models.SubPrograms;
 import com.loopie.uvtfitnesstracker.views.ExerciseProgramsViewModel;
-import com.loopie.uvtfitnesstracker.views.SubProgramsViewModel;
 
 import java.util.List;
 

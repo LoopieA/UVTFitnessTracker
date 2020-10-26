@@ -49,11 +49,7 @@ public abstract class RoomMyDatabase extends RoomDatabase {
                                 @Override
                                 public void onOpen(@NonNull SupportSQLiteDatabase db) {
                                     super.onOpen(db);
-                                    // If you want to keep data through app restarts,
-                                    // comment out the following block
                                     databaseWriteExecutor.execute(() -> {
-                                        // Populate the database in the background.
-                                        // If you want to start with more words, just add them.
                                         ExerciseDao dao = INSTANCE.exerciseDao();
                                         ExerciseProgramsDao exprogDao = INSTANCE.exerciseProgramsDao();
                                         ProgramsDao progDao = INSTANCE.programsDao();
@@ -64,17 +60,10 @@ public abstract class RoomMyDatabase extends RoomDatabase {
                                         SubPrograms subprogram2 = new SubPrograms("Tuesday", 1);
                                         programtest.setProgramsid(1);
                                         progDao.insert(programtest);
-                                        subprogram1.setsubprogramsid(2);
-                                        subprogram2.setsubprogramsid(3);
+                                        subprogram1.setsubprogramsid(1);
+                                        subprogram2.setsubprogramsid(2);
                                         subProgDao.insert(subprogram1);
                                         subProgDao.insert(subprogram2);
-                                        ExerciseProgramsMany ex1 = new ExerciseProgramsMany(1,2);
-                                        ExerciseProgramsMany ex2 = new ExerciseProgramsMany(5,2);
-                                        ExerciseProgramsMany ex3 = new ExerciseProgramsMany(120,2);
-                                        exprogDao.insert(ex1);
-                                        exprogDao.insert(ex2);
-
-                                        exprogDao.insert(ex3);
                                         try {
                                             JSONArray ja = new JSONArray(loadJSONFromAsset(context));
                                             for (int i = 0; i < ja.length(); i++) {

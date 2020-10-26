@@ -3,6 +3,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import com.loopie.uvtfitnesstracker.R;
 import com.loopie.uvtfitnesstracker.models.Exercise;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciseProgramsListAdapter extends RecyclerView.Adapter<ExerciseProgramsListAdapter.ExerciseProgramsViewHolder> {
@@ -27,9 +30,11 @@ public class ExerciseProgramsListAdapter extends RecyclerView.Adapter<ExercisePr
     }
 
     private final LayoutInflater mInflater;
-    private List<Exercise> mExercises; // Cached copy of words
+    private List<Exercise> mExercises;
 
-    public ExerciseProgramsListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+    public ExerciseProgramsListAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+    }
 
     @Override
     public ExerciseProgramsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,4 +67,6 @@ public class ExerciseProgramsListAdapter extends RecyclerView.Adapter<ExercisePr
             return mExercises.size();
         else return 0;
     }
+
+
 }

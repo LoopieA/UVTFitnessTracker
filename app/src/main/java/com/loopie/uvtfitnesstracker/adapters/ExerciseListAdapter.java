@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,9 +21,10 @@ import com.loopie.uvtfitnesstracker.views.ExerciseProgramsViewModel;
 import com.loopie.uvtfitnesstracker.views.ExerciseViewModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ExerciseViewHolder> {
+public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ExerciseViewHolder> implements Filterable {
     private ExerciseProgramsRepo mExProgRepository;
     class ExerciseViewHolder extends RecyclerView.ViewHolder {
         private final TextView wordItemView;
@@ -35,9 +38,12 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     }
 
     private final LayoutInflater mInflater;
-    private List<Exercise> mExercises; // Cached copy of words
+    private List<Exercise> mExercises;
+    private List<Exercise> mExercisesFull;
 
-    public ExerciseListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+    public ExerciseListAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+    }
 
     @Override
     public ExerciseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -59,6 +65,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
     public void setExercises(List<Exercise> exercises){
         mExercises = exercises;
+        mExercisesFull = new ArrayList<>(exercises);
         notifyDataSetChanged();
     }
 
@@ -78,4 +85,35 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
             return mExercises.size();
         else return 0;
     }
+
+    @Override
+    public Filter getFilter() {
+        return mExercisesFilter;
+    }
+    private Filter mExercisesFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List <Exercise> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(mExercisesFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Exercise ex : mExercisesFull) {
+                    if (ex.getName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(ex);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mExercises.clear();
+            mExercises.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

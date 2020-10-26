@@ -19,6 +19,6 @@ public interface ExerciseProgramsDao {
     void insert(ExerciseProgramsMany exerciseprograms);
 
     @Transaction
-    @Query("SELECT * from exercise_table JOIN exercise_programs_table ON exercise_table.id_exercise = exercise_programs_table.id_exercise WHERE exercise_programs_table.id_exercise=:exID")
+    @Query("SELECT * from exercise_table JOIN exercise_programs_table ON exercise_table.id_exercise = exercise_programs_table.id_exercise WHERE exercise_programs_table.programsid=:exID")
     LiveData<List<Exercise>> getProgramsWithExercises(long exID);
 }

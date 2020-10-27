@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.loopie.uvtfitnesstracker.R;
 import com.loopie.uvtfitnesstracker.adapters.ExerciseProgramsListAdapter;
 import com.loopie.uvtfitnesstracker.models.Exercise;
@@ -39,6 +40,8 @@ public class ProgramExercisesFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        MaterialToolbar toolbar = (MaterialToolbar) getActivity().findViewById(R.id.topAppBar);
+        toolbar.setTitle("Workout");
         Bundle arguments = getArguments();
         exID = arguments.getLong("exID");
         RecyclerView recyclerView = getActivity().findViewById(R.id.listView);

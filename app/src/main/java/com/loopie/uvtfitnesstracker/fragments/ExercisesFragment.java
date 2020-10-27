@@ -42,6 +42,8 @@ public class ExercisesFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        MaterialToolbar toolbar = (MaterialToolbar) getActivity().findViewById(R.id.topAppBar);
+        toolbar.setTitle("Exercises");
         RecyclerView recyclerView = getActivity().findViewById(R.id.listView);
         final ExerciseListAdapter adapter = new ExerciseListAdapter(getActivity());
         recyclerView.setAdapter(adapter);

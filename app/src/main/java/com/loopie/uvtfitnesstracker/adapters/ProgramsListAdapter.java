@@ -52,6 +52,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
                     Fragment fragment = new SubProgramsFragment();
                     Bundle arguments = new Bundle();
                     arguments.putLong("fkID" , current.getProgramsid());
+                    arguments.putString("subProgName", current.getName());
                     fragment.setArguments(arguments);
                     FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
                     fragmentManager.beginTransaction()

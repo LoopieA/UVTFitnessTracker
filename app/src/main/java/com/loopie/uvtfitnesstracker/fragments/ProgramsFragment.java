@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.loopie.uvtfitnesstracker.R;
 import com.loopie.uvtfitnesstracker.adapters.ProgramsListAdapter;
@@ -40,6 +41,8 @@ public class ProgramsFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        MaterialToolbar toolbar = (MaterialToolbar) getActivity().findViewById(R.id.topAppBar);
+        toolbar.setTitle("Programs");
         RecyclerView recyclerView = getActivity().findViewById(R.id.listView);
         final ProgramsListAdapter adapter = new ProgramsListAdapter(getActivity());
         recyclerView.setAdapter(adapter);
@@ -92,4 +95,5 @@ public class ProgramsFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+    
 }

@@ -1,6 +1,8 @@
 package com.loopie.uvtfitnesstracker.repo;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -49,39 +51,16 @@ public abstract class RoomMyDatabase extends RoomDatabase {
                                 @Override
                                 public void onOpen(@NonNull SupportSQLiteDatabase db) {
                                     super.onOpen(db);
+                                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                                    Boolean firstStart = preferences.getBoolean("firstStart", true);
                                     databaseWriteExecutor.execute(() -> {
-                                        ExerciseDao dao = INSTANCE.exerciseDao();
-                                        ExerciseProgramsDao exprogDao = INSTANCE.exerciseProgramsDao();
-                                        ProgramsDao progDao = INSTANCE.programsDao();
-                                        SubProgramsDao subProgDao = INSTANCE.subProgramsDao();
-                                        //dao.deleteAll();
-                                        Programs programtest = new Programs("Upper/Lower Program");
-                                        SubPrograms subprogram1 = new SubPrograms("Monday", 1);
-                                        SubPrograms subprogram2 = new SubPrograms("Tuesday", 1);
-                                        programtest.setProgramsid(1);
-                                        progDao.insert(programtest);
-                                        subprogram1.setsubprogramsid(1);
-                                        subprogram2.setsubprogramsid(2);
-                                        subProgDao.insert(subprogram1);
-                                        subProgDao.insert(subprogram2);
-                                        try {
-                                            JSONArray ja = new JSONArray(loadJSONFromAsset(context));
-                                            for (int i = 0; i < ja.length(); i++) {
-                                                JSONObject jsonObject = ja.getJSONObject(i);
-                                                try {
-                                                    try {
-                                                        Exercise exercise = new Exercise(jsonObject.getString("title"), "file:///android_asset/" + jsonObject.getJSONArray("png").getString(0) + ".png");
-                                                        dao.insert(exercise);
-                                                    } catch (MissingResourceException ex) {
-
-                                                    }
-                                                } catch (JSONException ex) {
-                                                    Log.e("jsontest", "PNG NOT FOUND");
-                                                }
-                                            }
-                                        } catch (JSONException ex) {
-                                            ex.printStackTrace();
+                                        if (firstStart) {
+                                            populateDB(context);
+                                            SharedPreferences.Editor editor = preferences.edit();
+                                            editor.putBoolean("firstStart", false);
+                                            editor.apply();
                                         }
+
                                     });
                                 }
                             })
@@ -92,7 +71,42 @@ public abstract class RoomMyDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    static public String loadJSONFromAsset(Context context) {
+    public static void populateDB(Context context) {
+        ExerciseDao dao = INSTANCE.exerciseDao();
+        ExerciseProgramsDao exprogDao = INSTANCE.exerciseProgramsDao();
+        ProgramsDao progDao = INSTANCE.programsDao();
+        SubProgramsDao subProgDao = INSTANCE.subProgramsDao();
+        //dao.deleteAll();
+        Programs programtest = new Programs("Upper/Lower Program");
+        SubPrograms subprogram1 = new SubPrograms("Monday", 1);
+        SubPrograms subprogram2 = new SubPrograms("Tuesday", 1);
+        programtest.setProgramsid(1);
+        progDao.insert(programtest);
+        subprogram1.setsubprogramsid(1);
+        subprogram2.setsubprogramsid(2);
+        subProgDao.insert(subprogram1);
+        subProgDao.insert(subprogram2);
+        try {
+            JSONArray ja = new JSONArray(loadJSONFromAsset(context));
+            for (int i = 0; i < ja.length(); i++) {
+                JSONObject jsonObject = ja.getJSONObject(i);
+                try {
+                    try {
+                        Exercise exercise = new Exercise(jsonObject.getString("title"), "file:///android_asset/" + jsonObject.getJSONArray("png").getString(0) + ".png");
+                        dao.insert(exercise);
+                    } catch (MissingResourceException ex) {
+
+                    }
+                } catch (JSONException ex) {
+                    Log.e("jsontest", "PNG NOT FOUND");
+                }
+            }
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static String loadJSONFromAsset(Context context) {
         String json = null;
         try {
             InputStream is = context.getAssets().open("exercises.json");

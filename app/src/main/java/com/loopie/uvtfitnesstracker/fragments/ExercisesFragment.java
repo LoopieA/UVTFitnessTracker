@@ -1,13 +1,16 @@
 package com.loopie.uvtfitnesstracker.fragments;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,7 +21,7 @@ import com.loopie.uvtfitnesstracker.models.Exercise;
 import com.loopie.uvtfitnesstracker.adapters.ExerciseListAdapter;
 import com.loopie.uvtfitnesstracker.views.ExerciseViewModel;
 import com.loopie.uvtfitnesstracker.R;
-
+import com.google.android.material.appbar.MaterialToolbar;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -36,6 +39,7 @@ public class ExercisesFragment extends Fragment {
         return inflater.inflate(R.layout.exercises_fragment, container, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         RecyclerView recyclerView = getActivity().findViewById(R.id.listView);

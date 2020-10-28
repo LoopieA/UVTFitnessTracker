@@ -9,14 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.loopie.uvtfitnesstracker.converters.Converters;
 import com.loopie.uvtfitnesstracker.dao.ExerciseDao;
 import com.loopie.uvtfitnesstracker.dao.ExerciseProgramsDao;
+import com.loopie.uvtfitnesstracker.dao.ExerciseRepsDao;
 import com.loopie.uvtfitnesstracker.dao.ProgramsDao;
 import com.loopie.uvtfitnesstracker.dao.SubProgramsDao;
 import com.loopie.uvtfitnesstracker.models.Exercise;
 import com.loopie.uvtfitnesstracker.models.ExerciseProgramsMany;
+import com.loopie.uvtfitnesstracker.models.ExerciseReps;
 import com.loopie.uvtfitnesstracker.models.Programs;
 import com.loopie.uvtfitnesstracker.models.SubPrograms;
 
@@ -30,12 +34,14 @@ import java.util.MissingResourceException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Exercise.class, ExerciseProgramsMany.class, Programs.class, SubPrograms.class}, version = 1, exportSchema = false)
+@Database(entities = {Exercise.class, ExerciseProgramsMany.class, Programs.class, SubPrograms.class, ExerciseReps.class}, version = 1, exportSchema = false)
+@TypeConverters({Converters.class})
 public abstract class RoomMyDatabase extends RoomDatabase {
     public abstract ExerciseDao exerciseDao();
     public abstract ProgramsDao programsDao();
     public abstract ExerciseProgramsDao exerciseProgramsDao();
     public abstract SubProgramsDao subProgramsDao();
+    public abstract ExerciseRepsDao exerciseRepsDao();
     private static volatile RoomMyDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =

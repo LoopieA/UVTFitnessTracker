@@ -1,7 +1,6 @@
 package com.loopie.uvtfitnesstracker.adapters;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopie.uvtfitnesstracker.R;
-import com.loopie.uvtfitnesstracker.fragments.ExercisesFragment;
-import com.loopie.uvtfitnesstracker.fragments.ProgramsFragment;
 import com.loopie.uvtfitnesstracker.fragments.SubProgramsFragment;
 import com.loopie.uvtfitnesstracker.models.Programs;
 
@@ -37,7 +34,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
     @Override
     public ProgramsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.adapter_view_layout, parent, false);
+        View itemView = mInflater.inflate(R.layout.list_view_layout, parent, false);
         return new ProgramsViewHolder(itemView);
     }
 

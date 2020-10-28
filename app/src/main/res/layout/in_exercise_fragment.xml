@@ -115,4 +115,34 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="119dp" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/finishSetBtn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Finish Set"
+        app:backgroundTint="@color/flax"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Logs"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/finishSetBtn" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/repsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

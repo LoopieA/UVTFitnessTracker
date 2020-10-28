@@ -9,16 +9,12 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopie.uvtfitnesstracker.R;
-import com.loopie.uvtfitnesstracker.dao.ExerciseProgramsDao;
 import com.loopie.uvtfitnesstracker.models.Exercise;
 import com.loopie.uvtfitnesstracker.models.ExerciseProgramsMany;
 import com.loopie.uvtfitnesstracker.repo.ExerciseProgramsRepo;
-import com.loopie.uvtfitnesstracker.views.ExerciseProgramsViewModel;
-import com.loopie.uvtfitnesstracker.views.ExerciseViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -47,7 +43,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
     @Override
     public ExerciseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.adapter_view_layout, parent, false);
+        View itemView = mInflater.inflate(R.layout.list_view_layout, parent, false);
         return new ExerciseViewHolder(itemView);
     }
 

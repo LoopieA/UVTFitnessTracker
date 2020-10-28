@@ -1,20 +1,22 @@
 package com.loopie.uvtfitnesstracker.adapters;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopie.uvtfitnesstracker.R;
+import com.loopie.uvtfitnesstracker.fragments.SetsRepsFragment;
 import com.loopie.uvtfitnesstracker.models.Exercise;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciseProgramsListAdapter extends RecyclerView.Adapter<ExerciseProgramsListAdapter.ExerciseProgramsViewHolder> {
@@ -38,7 +40,7 @@ public class ExerciseProgramsListAdapter extends RecyclerView.Adapter<ExercisePr
 
     @Override
     public ExerciseProgramsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.adapter_view_layout, parent, false);
+        View itemView = mInflater.inflate(R.layout.list_view_layout, parent, false);
         return new ExerciseProgramsViewHolder(itemView);
     }
 
@@ -48,6 +50,21 @@ public class ExerciseProgramsListAdapter extends RecyclerView.Adapter<ExercisePr
             Exercise current = mExercises.get(position);
             holder.wordItemView.setText(current.getName());
             Picasso.get().load(current.getimgURL()).into(holder.imageView);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Fragment fragment = new SetsRepsFragment();
+                    Bundle arguments = new Bundle();
+                    arguments.putLong("exID" , current.getId_exercise());
+                    arguments.putString("exName" , current.getName());
+                    fragment.setArguments(arguments);
+                    FragmentManager fragmentManager = ((FragmentActivity) view.getContext()).getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.content_main, fragment)
+                            .addToBackStack("tag")
+                            .commit();
+                }
+            });
         } else {
             // Covers the case of data not being ready yet.
             holder.wordItemView.setText("Loading");

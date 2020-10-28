@@ -3,12 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/SecondFragment">
+    app:startDestination="@id/InExerciseFragment">
 
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.loopie.uvtfitnesstracker.fragments.ProgramsFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/exercises_fragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/InExerciseFragment"
+        android:name="com.loopie.uvtfitnesstracker.fragments.SetsRepsFragment"
+        android:label="InExerciseFragment"
+        tools:layout="@layout/in_exercise_fragment">
     </fragment>
 </navigation>

@@ -52,7 +52,7 @@ public abstract class RoomMyDatabase extends RoomDatabase {
                                 public void onOpen(@NonNull SupportSQLiteDatabase db) {
                                     super.onOpen(db);
                                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                                    Boolean firstStart = preferences.getBoolean("firstStart", true);
+                                    boolean firstStart = preferences.getBoolean("firstStart", true);
                                     databaseWriteExecutor.execute(() -> {
                                         if (firstStart) {
                                             populateDB(context);

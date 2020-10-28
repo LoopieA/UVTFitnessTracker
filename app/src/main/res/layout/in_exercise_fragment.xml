@@ -21,7 +21,9 @@
         app:hintTextAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Reps"
@@ -40,14 +42,15 @@
         android:id="@+id/textInputLayout2"
         android:layout_width="80dp"
         android:layout_height="50dp"
+        android:layout_marginStart="200dp"
         app:helperText="Reps"
         app:helperTextEnabled="false"
         app:hintEnabled="false"
         app:hintTextAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:layout_marginStart="200dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/weight"
@@ -68,10 +71,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:background="?android:attr/selectableItemBackground"
         app:icon="@drawable/addrep"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        android:background="?android:attr/selectableItemBackground"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout" />
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addWeight"
@@ -82,7 +86,8 @@
         android:background="?android:attr/selectableItemBackground"
         app:icon="@drawable/addrep"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout2" />
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/subtractRep"
@@ -91,10 +96,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginBottom="8dp"
-        app:icon="@drawable/minus"
         android:background="?android:attr/selectableItemBackground"
+        app:icon="@drawable/minus"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/textInputLayout" />
+        app:layout_constraintEnd_toStartOf="@+id/textInputLayout"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/subtractWeight"
@@ -106,7 +112,8 @@
         android:background="?android:attr/selectableItemBackground"
         app:icon="@drawable/minus"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/textInputLayout2" />
+        app:layout_constraintEnd_toStartOf="@+id/textInputLayout2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -121,7 +128,8 @@
         android:layout_height="60dp"
         android:text="Finish Set"
         app:backgroundTint="@color/flax"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/textView"

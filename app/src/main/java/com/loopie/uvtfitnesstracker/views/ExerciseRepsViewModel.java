@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.loopie.uvtfitnesstracker.models.Exercise;
 import com.loopie.uvtfitnesstracker.models.ExerciseReps;
+import com.loopie.uvtfitnesstracker.models.SubPrograms;
 import com.loopie.uvtfitnesstracker.repo.ExerciseRepo;
 import com.loopie.uvtfitnesstracker.repo.ExerciseRepsRepo;
 
@@ -16,14 +17,23 @@ public class ExerciseRepsViewModel extends AndroidViewModel {
     private ExerciseRepsRepo mRepository;
 
     private LiveData<List<ExerciseReps>> mAllExerciseReps;
+    private LiveData<List<ExerciseReps>> mFilteredExerciseReps;
 
     public ExerciseRepsViewModel(Application application) {
         super(application);
         mRepository = new ExerciseRepsRepo(application);
-        mAllExerciseReps = mRepository.getExerciseReps();
+
     }
 
-    public LiveData<List<ExerciseReps>> getAllExerciseReps() { return mAllExerciseReps; }
+    public LiveData<List<ExerciseReps>> getFilteredExerciseReps(long exerciseID) {
+        mFilteredExerciseReps = mRepository.getFilteredExerciseReps(exerciseID);
+        return mFilteredExerciseReps;
+    }
+
+    public LiveData<List<ExerciseReps>> getAllExerciseReps() {
+        mAllExerciseReps = mRepository.getExerciseReps();
+        return mAllExerciseReps;
+    }
 
     public void insert(ExerciseReps exerciseReps) { mRepository.insert(exerciseReps); }
 }

@@ -8,12 +8,14 @@ import com.loopie.uvtfitnesstracker.dao.ExerciseDao;
 import com.loopie.uvtfitnesstracker.dao.ExerciseRepsDao;
 import com.loopie.uvtfitnesstracker.models.Exercise;
 import com.loopie.uvtfitnesstracker.models.ExerciseReps;
+import com.loopie.uvtfitnesstracker.models.SubPrograms;
 
 import java.util.List;
 
 public class ExerciseRepsRepo {
     private ExerciseRepsDao mExerciseRepsDao;
     private LiveData<List<ExerciseReps>> mAllExerciseReps;
+    private LiveData<List<ExerciseReps>> mFilteredExerciseReps;
 
     public ExerciseRepsRepo(Application application) {
         RoomMyDatabase db = RoomMyDatabase.getDatabase(application);
@@ -21,8 +23,11 @@ public class ExerciseRepsRepo {
         mAllExerciseReps = mExerciseRepsDao.getExerciseReps();
     }
 
-    // Room executes all queries on a separate thread.
-    // Observed LiveData will notify the observer when the data has changed.
+    public LiveData<List<ExerciseReps>> getFilteredExerciseReps(long exerciseID) {
+        mFilteredExerciseReps = mExerciseRepsDao.getFilteredExerciseReps(exerciseID);
+        return mFilteredExerciseReps;
+    }
+
     public LiveData<List<ExerciseReps>> getExerciseReps() {
         return mAllExerciseReps;
     }

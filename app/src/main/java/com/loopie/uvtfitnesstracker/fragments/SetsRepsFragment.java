@@ -46,13 +46,13 @@ public class SetsRepsFragment extends Fragment {
         Bundle arguments = getArguments();
         MaterialToolbar toolbar = getActivity().findViewById(R.id.topAppBar);
         toolbar.setTitle(arguments.getString("exName"));
-
+        long exerciseID = arguments.getLong("exID");
         RecyclerView recyclerView = getActivity().findViewById(R.id.repsRecyclerView);
         final ExerciseRepsListAdapter adapter = new ExerciseRepsListAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mExerciseRepsViewModel = new ViewModelProvider(getActivity()).get(ExerciseRepsViewModel.class);
-        mExerciseRepsViewModel.getAllExerciseReps().observe(getViewLifecycleOwner(), new Observer<List<ExerciseReps>>() {
+        mExerciseRepsViewModel.getFilteredExerciseReps(exerciseID).observe(getViewLifecycleOwner(), new Observer<List<ExerciseReps>>() {
             @Override
             public void onChanged(@Nullable final List<ExerciseReps> exerciseReps) {
                 // Update the cached copy of the words in the adapter.
@@ -114,7 +114,7 @@ public class SetsRepsFragment extends Fragment {
                 } else {
                     double weightCount = Double.parseDouble(weightText) - 2.5;
                     if (Double.parseDouble(weightText) > 0) {
-                        weight.setText(String.valueOf(weightCount - 1));
+                        weight.setText(String.valueOf(weightCount));
                     }
                 }
             }
@@ -127,7 +127,7 @@ public class SetsRepsFragment extends Fragment {
                 Calendar today = Calendar.getInstance();
                 today.set(Calendar.HOUR_OF_DAY, 0);
 
-                ExerciseReps newSet = new ExerciseReps(100, repCount, weightCount, today.getTime());
+                ExerciseReps newSet = new ExerciseReps(exerciseID, repCount, weightCount, today.getTime());
                 mExerciseRepsViewModel.insert(newSet);
             }
         });

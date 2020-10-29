@@ -11,6 +11,7 @@ import com.loopie.uvtfitnesstracker.models.SubPrograms;
 import com.loopie.uvtfitnesstracker.repo.ExerciseRepo;
 import com.loopie.uvtfitnesstracker.repo.ExerciseRepsRepo;
 
+import java.util.Date;
 import java.util.List;
 
 public class ExerciseRepsViewModel extends AndroidViewModel {
@@ -25,8 +26,13 @@ public class ExerciseRepsViewModel extends AndroidViewModel {
 
     }
 
-    public LiveData<List<ExerciseReps>> getFilteredExerciseReps(long exerciseID) {
-        mFilteredExerciseReps = mRepository.getFilteredExerciseReps(exerciseID);
+    public LiveData<List<ExerciseReps>> getHistoryExerciseReps(long exerciseID) {
+        mFilteredExerciseReps = mRepository.getHistoryExerciseReps(exerciseID);
+        return mFilteredExerciseReps;
+    }
+
+    public LiveData<List<ExerciseReps>> getFilteredExerciseReps(long exerciseID, Date today) {
+        mFilteredExerciseReps = mRepository.getFilteredExerciseReps(exerciseID, today);
         return mFilteredExerciseReps;
     }
 

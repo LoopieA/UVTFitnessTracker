@@ -66,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
                                 .replace(R.id.content_main, fragment)
                                 .commit();
                         break;
-                    case R.id.nav_item_three:
-                        Toast.makeText(MainActivity.this, "My Cart",Toast.LENGTH_SHORT).show();break;
                     default:
                         return true;
                 }

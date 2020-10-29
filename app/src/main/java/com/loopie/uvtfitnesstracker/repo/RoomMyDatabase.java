@@ -82,6 +82,7 @@ public abstract class RoomMyDatabase extends RoomDatabase {
         ExerciseProgramsDao exprogDao = INSTANCE.exerciseProgramsDao();
         ProgramsDao progDao = INSTANCE.programsDao();
         SubProgramsDao subProgDao = INSTANCE.subProgramsDao();
+        ExerciseProgramsDao exManyDao = INSTANCE.exerciseProgramsDao();
         //dao.deleteAll();
         Programs programtest = new Programs("Upper/Lower Program");
         SubPrograms subprogram1 = new SubPrograms("Monday", 1);
@@ -92,19 +93,28 @@ public abstract class RoomMyDatabase extends RoomDatabase {
         subprogram2.setsubprogramsid(2);
         subProgDao.insert(subprogram1);
         subProgDao.insert(subprogram2);
+        ExerciseProgramsMany exMany1 = new ExerciseProgramsMany(41, 1);
+        ExerciseProgramsMany exMany2 = new ExerciseProgramsMany(297, 1);
+        exManyDao.insert(exMany1);
+        exManyDao.insert(exMany2);
         try {
             JSONArray ja = new JSONArray(loadJSONFromAsset(context));
             for (int i = 0; i < ja.length(); i++) {
                 JSONObject jsonObject = ja.getJSONObject(i);
                 try {
                     try {
-                        Exercise exercise = new Exercise(jsonObject.getString("title"), "file:///android_asset/" + jsonObject.getJSONArray("png").getString(0) + ".png");
+                        Exercise exercise;
+                        if (jsonObject.getJSONArray("png").length() > 0) {
+                            exercise = new Exercise(jsonObject.getString("title"), "file:///android_asset/" + jsonObject.getJSONArray("png").getString(0) + ".png");
+                        } else {
+                            exercise = new Exercise(jsonObject.getString("title"), "");
+                        }
                         dao.insert(exercise);
                     } catch (MissingResourceException ex) {
 
                     }
                 } catch (JSONException ex) {
-                    Log.e("jsontest", "PNG NOT FOUND");
+                    Log.e("jsontest", ex.getMessage());
                 }
             }
         } catch (JSONException ex) {

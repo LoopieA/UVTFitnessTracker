@@ -3,6 +3,8 @@ package com.loopie.uvtfitnesstracker.fragments;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -13,6 +15,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,9 +38,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.loopie.uvtfitnesstracker.R;
 import com.loopie.uvtfitnesstracker.adapters.ExerciseListAdapter;
 import com.loopie.uvtfitnesstracker.models.Exercise;
+import com.loopie.uvtfitnesstracker.models.Programs;
 import com.loopie.uvtfitnesstracker.views.ExerciseViewModel;
 
 import java.util.List;
@@ -60,6 +65,23 @@ public class AddExercisesToSubProgramFragment extends Fragment {
         setHasOptionsMenu(true);
         MaterialToolbar toolbar = (MaterialToolbar) getActivity().findViewById(R.id.topAppBar);
         toolbar.setTitle("");
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean alertAddExercise = preferences.getBoolean("alertAddExercise", true);
+        if (alertAddExercise) {
+            new MaterialAlertDialogBuilder(getContext())
+                    .setTitle("")
+                    .setMessage("Slide right to add an exercise to the workout.")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(final DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean("alertAddExercise", false);
+                            editor.apply();
+                        }
+                    })
+                    .create().show();
+        }
         Bundle arguments = getArguments();
         subProgID = arguments.getLong("subProgID");
         RecyclerView recyclerView = getActivity().findViewById(R.id.listView);

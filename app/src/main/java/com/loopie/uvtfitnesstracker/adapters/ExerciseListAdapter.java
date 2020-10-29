@@ -52,7 +52,8 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         if (mExercises != null) {
             Exercise current = mExercises.get(position);
             holder.wordItemView.setText(current.getName());
-            Picasso.get().load(current.getimgURL()).into(holder.imageView);
+            if(!current.getimgURL().matches(""))
+                Picasso.get().load(current.getimgURL()).into(holder.imageView);
         } else {
             // Covers the case of data not being ready yet.
             holder.wordItemView.setText("No Exercise");

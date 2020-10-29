@@ -10,6 +10,7 @@ import com.loopie.uvtfitnesstracker.models.Exercise;
 import com.loopie.uvtfitnesstracker.models.ExerciseReps;
 import com.loopie.uvtfitnesstracker.models.SubPrograms;
 
+import java.util.Date;
 import java.util.List;
 
 public class ExerciseRepsRepo {
@@ -23,8 +24,13 @@ public class ExerciseRepsRepo {
         mAllExerciseReps = mExerciseRepsDao.getExerciseReps();
     }
 
-    public LiveData<List<ExerciseReps>> getFilteredExerciseReps(long exerciseID) {
-        mFilteredExerciseReps = mExerciseRepsDao.getFilteredExerciseReps(exerciseID);
+    public LiveData<List<ExerciseReps>> getHistoryExerciseReps(long exerciseID) {
+        mFilteredExerciseReps = mExerciseRepsDao.getHistoryExerciseReps(exerciseID);
+        return mFilteredExerciseReps;
+    }
+
+    public LiveData<List<ExerciseReps>> getFilteredExerciseReps(long exerciseID, Date today) {
+        mFilteredExerciseReps = mExerciseRepsDao.getFilteredExerciseReps(exerciseID, today);
         return mFilteredExerciseReps;
     }
 

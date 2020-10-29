@@ -1,6 +1,7 @@
 package com.loopie.uvtfitnesstracker.fragments;
 
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,14 +48,20 @@ public class SetsRepsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Bundle arguments = getArguments();
         MaterialToolbar toolbar = getActivity().findViewById(R.id.topAppBar);
-        toolbar.setTitle(arguments.getString("exName"));
+        String exName = arguments.getString("exName");
+        toolbar.setTitle(exName);
         long exerciseID = arguments.getLong("exID");
         RecyclerView recyclerView = getActivity().findViewById(R.id.repsRecyclerView);
         final ExerciseRepsListAdapter adapter = new ExerciseRepsListAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
         mExerciseRepsViewModel = new ViewModelProvider(getActivity()).get(ExerciseRepsViewModel.class);
-        mExerciseRepsViewModel.getFilteredExerciseReps(exerciseID).observe(getViewLifecycleOwner(), new Observer<List<ExerciseReps>>() {
+        mExerciseRepsViewModel.getFilteredExerciseReps(exerciseID, today.getTime()).observe(getViewLifecycleOwner(), new Observer<List<ExerciseReps>>() {
             @Override
             public void onChanged(@Nullable final List<ExerciseReps> exerciseReps) {
                 // Update the cached copy of the words in the adapter.
@@ -67,6 +76,7 @@ public class SetsRepsFragment extends Fragment {
         TextInputEditText reps = view.findViewById(R.id.Reps);
         TextInputEditText weight = view.findViewById(R.id.weight);
         MaterialButton finishSetBtn = view.findViewById(R.id.finishSetBtn);
+        MaterialButton historyExerciseBtn = view.findViewById(R.id.historyExerciseBtn);
         addRep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,9 +136,26 @@ public class SetsRepsFragment extends Fragment {
                 String weightCount = weight.getText().toString();
                 Calendar today = Calendar.getInstance();
                 today.set(Calendar.HOUR_OF_DAY, 0);
-
+                today.set(Calendar.MINUTE, 0);
+                today.set(Calendar.SECOND, 0);
+                today.set(Calendar.MILLISECOND, 0);
                 ExerciseReps newSet = new ExerciseReps(exerciseID, repCount, weightCount, today.getTime());
                 mExerciseRepsViewModel.insert(newSet);
+            }
+        });
+        historyExerciseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new HistoryRepsFragment();
+                Bundle arguments = new Bundle();
+                arguments.putLong("exID", exerciseID);
+                arguments.putString("exName", exName);
+                fragment.setArguments(arguments);
+                FragmentManager fragmentManager = ((FragmentActivity) getView().getContext()).getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_main, fragment)
+                        .addToBackStack("tag")
+                        .commit();
             }
         });
         super.onViewCreated(view, savedInstanceState);

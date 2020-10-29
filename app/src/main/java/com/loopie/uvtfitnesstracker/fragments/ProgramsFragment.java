@@ -73,7 +73,7 @@ public class ProgramsFragment extends Fragment {
                 new MaterialAlertDialogBuilder(getContext())
                         .setTitle("Create New Program")
                         .setView(edittext)
-                        .setCancelable(false)
+                        .setCancelable(true)
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(final DialogInterface dialog, int which) {

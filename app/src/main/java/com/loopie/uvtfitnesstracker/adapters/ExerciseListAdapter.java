@@ -1,6 +1,7 @@
 package com.loopie.uvtfitnesstracker.adapters;
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopie.uvtfitnesstracker.R;
+import com.loopie.uvtfitnesstracker.dao.ExerciseProgramsDao;
 import com.loopie.uvtfitnesstracker.models.Exercise;
 import com.loopie.uvtfitnesstracker.models.ExerciseProgramsMany;
 import com.loopie.uvtfitnesstracker.repo.ExerciseProgramsRepo;
@@ -60,18 +62,28 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         }
     }
 
+    public Exercise getExercise(int id) {
+        return mExercises.get(id);
+    }
+
     public void setExercises(List<Exercise> exercises){
         mExercises = exercises;
         mExercisesFull = new ArrayList<>(exercises);
         notifyDataSetChanged();
     }
 
-    public void removeExercises(int exercise, Application context, long subProgID) {
+    public void addExerciseToWorkout(int exercise, Application context, long subProgID) {
         Exercise ex = mExercises.get(exercise);
         mExercises.remove(ex);
         mExProgRepository = new ExerciseProgramsRepo(context);
         ExerciseProgramsMany exprogmany = new ExerciseProgramsMany(ex.getId_exercise(), subProgID);
         mExProgRepository.insert(exprogmany);
+    }
+
+    public void removeExerciseFromWorkout(int position, Exercise ex, long subProgID) {
+        mExProgRepository.delete(ex.getId_exercise(), subProgID);
+        mExercises.add(position, ex);
+        notifyDataSetChanged();
     }
 
     // getItemCount() is called many times, and when it is first called,

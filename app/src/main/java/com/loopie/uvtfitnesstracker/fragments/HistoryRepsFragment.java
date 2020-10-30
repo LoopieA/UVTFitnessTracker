@@ -18,6 +18,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.loopie.uvtfitnesstracker.R;
 import com.loopie.uvtfitnesstracker.adapters.ExerciseRepsListAdapter;
+import com.loopie.uvtfitnesstracker.adapters.HistoryRepsListAdapter;
 import com.loopie.uvtfitnesstracker.models.ExerciseReps;
 import com.loopie.uvtfitnesstracker.views.ExerciseRepsViewModel;
 
@@ -41,7 +42,7 @@ public class HistoryRepsFragment extends Fragment {
         toolbar.setTitle(arguments.getString("exName"));
         long exerciseID = arguments.getLong("exID");
         RecyclerView recyclerView = getActivity().findViewById(R.id.historyRecyclerView);
-        final ExerciseRepsListAdapter adapter = new ExerciseRepsListAdapter(getActivity());
+        final HistoryRepsListAdapter adapter = new HistoryRepsListAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mExerciseRepsViewModel = new ViewModelProvider(getActivity()).get(ExerciseRepsViewModel.class);

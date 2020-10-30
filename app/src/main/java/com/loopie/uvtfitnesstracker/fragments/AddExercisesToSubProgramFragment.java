@@ -1,19 +1,11 @@
 package com.loopie.uvtfitnesstracker.fragments;
 
-import android.app.Activity;
-import android.content.ClipData;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
@@ -29,7 +21,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -39,10 +30,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.loopie.uvtfitnesstracker.R;
 import com.loopie.uvtfitnesstracker.adapters.ExerciseListAdapter;
 import com.loopie.uvtfitnesstracker.models.Exercise;
-import com.loopie.uvtfitnesstracker.models.Programs;
 import com.loopie.uvtfitnesstracker.views.ExerciseViewModel;
 
 import java.util.List;
@@ -143,11 +134,22 @@ public class AddExercisesToSubProgramFragment extends Fragment {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            mExericseAdapter.removeExercises(viewHolder.getAdapterPosition(), getActivity().getApplication(), subProgID);
+            int adapterPosition = viewHolder.getAdapterPosition();
+            Exercise savedExercise = mExericseAdapter.getExercise(adapterPosition);
+            Snackbar snackbar = Snackbar.make(viewHolder.itemView, "",
+                    Snackbar.LENGTH_LONG);
+            snackbar.setAction("UNDO", v -> undoDelete(adapterPosition, savedExercise));
+            Log.e("exerciseTest", mExericseAdapter.getExercise(adapterPosition).getName());
+            snackbar.getView().setBackgroundResource(R.color.flax);
+            snackbar.show();
+            mExericseAdapter.addExerciseToWorkout(viewHolder.getAdapterPosition(), getActivity().getApplication(), subProgID);
             mExericseAdapter.notifyDataSetChanged();
         }
         private int convertDpToPx(int dp){
             return Math.round(dp * (getResources().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        }
+        private void undoDelete(int position, Exercise ex) {
+            mExericseAdapter.removeExerciseFromWorkout(position, ex, subProgID);
         }
     };
 

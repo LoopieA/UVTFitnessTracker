@@ -1,6 +1,7 @@
 package com.loopie.uvtfitnesstracker.repo;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
@@ -31,4 +32,11 @@ public class ExerciseProgramsRepo {
             mExerciseProgramsDao.insert(exercise);
         });
     }
+
+    public void delete(long exID, long subProgID) {
+        RoomMyDatabase.databaseWriteExecutor.execute(() -> {
+            mExerciseProgramsDao.delete(exID, subProgID);
+        });
+    }
+
 }

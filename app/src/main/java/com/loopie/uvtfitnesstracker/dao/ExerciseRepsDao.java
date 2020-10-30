@@ -17,7 +17,7 @@ public interface ExerciseRepsDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(ExerciseReps exercisereps);
 
-    @Query("SELECT * from exercise_reps_table WHERE ex_id=:exerciseID")
+    @Query("SELECT * from exercise_reps_table WHERE ex_id=:exerciseID ORDER BY repDate DESC")
     LiveData<List<ExerciseReps>> getHistoryExerciseReps(long exerciseID);
 
     @Query("SELECT * from exercise_reps_table WHERE ex_id=:exerciseID AND repDate=:today")

@@ -1,5 +1,6 @@
 package com.loopie.uvtfitnesstracker.adapters;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +21,13 @@ public class HistoryRepsListAdapter extends RecyclerView.Adapter<HistoryRepsList
         private final TextView weightCount;
         private final TextView repDate;
 
+
         private HistoryRepsViewHolder(View itemView) {
             super(itemView);
             repsCount = itemView.findViewById(R.id.repsCount);
             weightCount = itemView.findViewById(R.id.weightCount);
             repDate = itemView.findViewById(R.id.timeLabel);
+
         }
     }
 
@@ -49,8 +52,14 @@ public class HistoryRepsListAdapter extends RecyclerView.Adapter<HistoryRepsList
             holder.weightCount.setText(current.getWeight());
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             holder.repDate.setText(dateFormat.format(current.getRepDate().getTime()));
+            //Log.e("ival", current.getReps());
         } else {
             holder.repsCount.setText("0");
+        }
+        if(position == 2){
+
+        }else{
+
         }
     }
 

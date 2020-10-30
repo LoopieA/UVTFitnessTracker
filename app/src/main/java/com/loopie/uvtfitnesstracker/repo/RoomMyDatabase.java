@@ -97,6 +97,7 @@ public abstract class RoomMyDatabase extends RoomDatabase {
         ExerciseProgramsMany exMany2 = new ExerciseProgramsMany(297, 1);
         exManyDao.insert(exMany1);
         exManyDao.insert(exMany2);
+        exManyDao.delete(41, 1);
         try {
             JSONArray ja = new JSONArray(loadJSONFromAsset(context));
             for (int i = 0; i < ja.length(); i++) {

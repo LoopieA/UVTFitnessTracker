@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName="exercise_programs_table")
 public class ExerciseProgramsMany{
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
+    public long id;
     @ColumnInfo(name = "id_exercise")
     public long id_exercise;
     @ColumnInfo(name = "programsid")

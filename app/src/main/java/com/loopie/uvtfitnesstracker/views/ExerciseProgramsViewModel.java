@@ -29,4 +29,5 @@ public class ExerciseProgramsViewModel extends AndroidViewModel {
     }
 
     public void insert(ExerciseProgramsMany exercise) { mRepository.insert(exercise); }
+    public void delete(long exID, long subProgID) { mRepository.delete(exID, subProgID); }
 }

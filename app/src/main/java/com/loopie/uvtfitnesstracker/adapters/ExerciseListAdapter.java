@@ -1,7 +1,6 @@
 package com.loopie.uvtfitnesstracker.adapters;
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopie.uvtfitnesstracker.R;
-import com.loopie.uvtfitnesstracker.dao.ExerciseProgramsDao;
 import com.loopie.uvtfitnesstracker.models.Exercise;
 import com.loopie.uvtfitnesstracker.models.ExerciseProgramsMany;
 import com.loopie.uvtfitnesstracker.repo.ExerciseProgramsRepo;

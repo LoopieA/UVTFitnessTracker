@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -139,7 +138,6 @@ public class AddExercisesToSubProgramFragment extends Fragment {
             Snackbar snackbar = Snackbar.make(viewHolder.itemView, "",
                     Snackbar.LENGTH_LONG);
             snackbar.setAction("UNDO", v -> undoDelete(adapterPosition, savedExercise));
-            Log.e("exerciseTest", mExericseAdapter.getExercise(adapterPosition).getName());
             snackbar.getView().setBackgroundResource(R.color.flax);
             snackbar.show();
             mExericseAdapter.addExerciseToWorkout(viewHolder.getAdapterPosition(), getActivity().getApplication(), subProgID);

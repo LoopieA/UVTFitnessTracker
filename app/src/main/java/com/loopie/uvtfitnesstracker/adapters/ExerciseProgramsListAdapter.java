@@ -49,7 +49,8 @@ public class ExerciseProgramsListAdapter extends RecyclerView.Adapter<ExercisePr
         if (mExercises != null) {
             Exercise current = mExercises.get(position);
             holder.wordItemView.setText(current.getName());
-            Picasso.get().load(current.getimgURL()).into(holder.imageView);
+            if(!current.getimgURL().matches(""))
+                Picasso.get().load(current.getimgURL()).into(holder.imageView);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

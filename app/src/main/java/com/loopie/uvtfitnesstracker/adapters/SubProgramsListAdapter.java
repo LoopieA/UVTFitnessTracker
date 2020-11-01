@@ -63,6 +63,7 @@ public class SubProgramsListAdapter extends RecyclerView.Adapter<SubProgramsList
         }
     }
 
+    /** Populate list*/
     public void setPrograms(List<SubPrograms> programs){
         mSubPrograms = programs;
         notifyDataSetChanged();

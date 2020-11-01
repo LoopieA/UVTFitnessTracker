@@ -60,16 +60,19 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         }
     }
 
+    /** Exercise getter*/
     public Exercise getExercise(int id) {
         return mExercises.get(id);
     }
 
+    /** Populate list*/
     public void setExercises(List<Exercise> exercises){
         mExercises = exercises;
         mExercisesFull = new ArrayList<>(exercises);
         notifyDataSetChanged();
     }
 
+    /** Adds exercise to many-to-many relation and removes it from the exercise list*/
     public void addExerciseToWorkout(int exercise, Application context, long subProgID) {
         Exercise ex = mExercises.get(exercise);
         mExercises.remove(ex);
@@ -78,6 +81,12 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         mExProgRepository.insert(exprogmany);
     }
 
+    public void addExerciseToList(Exercise exercise) {
+        mExercises.add(exercise);
+        notifyDataSetChanged();
+    }
+
+    /** Removes exercise from many-to-many relation and adds it back to the exercise list*/
     public void removeExerciseFromWorkout(int position, Exercise ex, long subProgID) {
         mExProgRepository.delete(ex.getId_exercise(), subProgID);
         mExercises.add(position, ex);
@@ -93,6 +102,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         else return 0;
     }
 
+    /** Exercise list filter */
     @Override
     public Filter getFilter() {
         return mExercisesFilter;

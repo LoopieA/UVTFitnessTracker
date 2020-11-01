@@ -54,6 +54,7 @@ public class ExerciseRepsListAdapter extends RecyclerView.Adapter<ExerciseRepsLi
         }
     }
 
+    /** Populate list*/
     public void setExerciseReps(List<ExerciseReps> exercises){
         mExerciseReps = exercises;
         notifyDataSetChanged();

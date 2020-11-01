@@ -43,6 +43,7 @@ public class AddExercisesToSubProgramFragment extends Fragment {
     private ExerciseListAdapter mExericseAdapter;
     private long subProgID;
 
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -50,6 +51,7 @@ public class AddExercisesToSubProgramFragment extends Fragment {
     ) {
         return inflater.inflate(R.layout.exercises_fragment, container, false);
     }
+
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -135,7 +137,7 @@ public class AddExercisesToSubProgramFragment extends Fragment {
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int adapterPosition = viewHolder.getAdapterPosition();
             Exercise savedExercise = mExericseAdapter.getExercise(adapterPosition);
-            Snackbar snackbar = Snackbar.make(viewHolder.itemView, "",
+            Snackbar snackbar = Snackbar.make(viewHolder.itemView, "Added exercise to workout",
                     Snackbar.LENGTH_LONG);
             snackbar.setAction("UNDO", v -> undoDelete(adapterPosition, savedExercise));
             snackbar.getView().setBackgroundResource(R.color.flax);
@@ -170,4 +172,6 @@ public class AddExercisesToSubProgramFragment extends Fragment {
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+
 }

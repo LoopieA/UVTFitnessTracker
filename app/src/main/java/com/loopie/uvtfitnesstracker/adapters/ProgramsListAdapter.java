@@ -65,6 +65,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<ProgramsListAdapte
 
     }
 
+    /** Populate list*/
     public void setPrograms(List<Programs> programs){
         mPrograms = programs;
         notifyDataSetChanged();

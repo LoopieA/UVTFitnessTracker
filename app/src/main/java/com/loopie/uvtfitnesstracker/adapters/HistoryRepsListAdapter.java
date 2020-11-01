@@ -63,6 +63,7 @@ public class HistoryRepsListAdapter extends RecyclerView.Adapter<HistoryRepsList
         }
     }
 
+    /** Populate list*/
     public void setExerciseReps(List<ExerciseReps> exercises){
         mExerciseReps = exercises;
         notifyDataSetChanged();

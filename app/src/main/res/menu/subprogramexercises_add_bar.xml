@@ -7,4 +7,11 @@
         android:title="add"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/removeExercise"
+        android:icon="@drawable/trash"
+        android:title="delete"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
 </menu>

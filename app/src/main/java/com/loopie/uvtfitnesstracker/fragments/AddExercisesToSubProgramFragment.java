@@ -38,11 +38,9 @@ import com.loopie.uvtfitnesstracker.views.ExerciseViewModel;
 import java.util.List;
 
 public class AddExercisesToSubProgramFragment extends Fragment {
-    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
     private ExerciseViewModel mExerciseViewModel;
     private static ExerciseListAdapter mExericseAdapter;
     private long subProgID;
-
 
     @Override
     public View onCreateView(

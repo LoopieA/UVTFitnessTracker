@@ -5,6 +5,9 @@
     android:layout_height="wrap_content"
     android:minHeight="100dp"
     android:background="@drawable/listbackground"
+    android:focusable="true"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     >
 
     <TextView

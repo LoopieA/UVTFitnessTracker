@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,9 +30,7 @@ import com.loopie.uvtfitnesstracker.views.ExerciseProgramsViewModel;
 import java.util.List;
 
 public class ProgramExercisesFragment extends Fragment {
-    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
     private ExerciseProgramsViewModel mExerciseProgramsViewModel;
-    private ExerciseListAdapter mExerciseAdapter;
     private long exID;
     private static Menu mMenu;
     private static MaterialToolbar toolbar;
@@ -57,7 +56,7 @@ public class ProgramExercisesFragment extends Fragment {
         mExerciseProgramsViewModel.getAllExercises(exID).observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
             @Override
             public void onChanged(@Nullable final List<Exercise> exercises) {
-                // Update the cached copy of the words in the adapter.
+                // Update the cached copy of the exercises in the adapter.
                 adapter.setExercises(exercises);
             }
         });
@@ -116,4 +115,5 @@ public class ProgramExercisesFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

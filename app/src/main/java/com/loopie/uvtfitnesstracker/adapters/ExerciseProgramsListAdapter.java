@@ -92,6 +92,7 @@ public class ExerciseProgramsListAdapter extends RecyclerView.Adapter<ExercisePr
                     }
                 });
             } else {
+
                 ProgramExercisesFragment.setMenuTrash(true);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -133,6 +134,10 @@ public class ExerciseProgramsListAdapter extends RecyclerView.Adapter<ExercisePr
         type = 0;
     }
 
+    public static int getType() {
+        return type;
+    }
+
     public void setExercises(List<Exercise> exercises) {
         mExercises = exercises;
         notifyDataSetChanged();
@@ -146,5 +151,4 @@ public class ExerciseProgramsListAdapter extends RecyclerView.Adapter<ExercisePr
             return mExercises.size();
         else return 0;
     }
-
 }

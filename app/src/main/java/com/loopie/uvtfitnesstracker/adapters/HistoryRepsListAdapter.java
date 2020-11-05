@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,15 +53,15 @@ public class HistoryRepsListAdapter extends RecyclerView.Adapter<HistoryRepsList
             holder.weightCount.setText(current.getWeight());
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             holder.repDate.setText(dateFormat.format(current.getRepDate().getTime()));
-            //Log.e("ival", current.getReps());
         } else {
             holder.repsCount.setText("0");
         }
-        if(position == 2){
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        }else{
-
-        }
+            }
+        });
     }
 
     /** Populate list*/

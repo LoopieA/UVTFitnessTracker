@@ -40,7 +40,7 @@ import java.util.List;
 public class AddExercisesToSubProgramFragment extends Fragment {
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
     private ExerciseViewModel mExerciseViewModel;
-    private ExerciseListAdapter mExericseAdapter;
+    private static ExerciseListAdapter mExericseAdapter;
     private long subProgID;
 
 
@@ -152,6 +152,10 @@ public class AddExercisesToSubProgramFragment extends Fragment {
             mExericseAdapter.removeExerciseFromWorkout(position, ex, subProgID);
         }
     };
+
+    public static ExerciseListAdapter getAdapter() {
+        return mExericseAdapter;
+    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

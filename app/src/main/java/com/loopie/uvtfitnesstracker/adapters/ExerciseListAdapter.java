@@ -82,7 +82,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     }
 
     public void addExerciseToList(Exercise exercise) {
-        mExercises.add(exercise);
+        mExercises.add((int) exercise.getId_exercise()-1, exercise);
         notifyDataSetChanged();
     }
 

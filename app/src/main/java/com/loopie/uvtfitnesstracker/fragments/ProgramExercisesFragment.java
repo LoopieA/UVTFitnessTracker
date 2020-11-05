@@ -1,6 +1,7 @@
 package com.loopie.uvtfitnesstracker.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -102,8 +103,11 @@ public class ProgramExercisesFragment extends Fragment {
             }
             case R.id.removeExercise: {
                 for(Exercise exercise : ExerciseProgramsListAdapter.getDeletedExercises()) {
+                    ExerciseListAdapter adapter = AddExercisesToSubProgramFragment.getAdapter();
+                    if (adapter != null) {
+                        adapter.addExerciseToList(exercise);
+                    }
                     mExerciseProgramsViewModel.delete(exercise.getId_exercise(), exID);
-                    mExerciseAdapter.addExerciseToList(exercise);
                 }
                 ExerciseProgramsListAdapter.setViewType0();
                 return true;

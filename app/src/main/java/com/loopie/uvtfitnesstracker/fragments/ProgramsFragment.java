@@ -28,7 +28,6 @@ import com.loopie.uvtfitnesstracker.views.ProgramsViewModel;
 import java.util.List;
 
 public class ProgramsFragment extends Fragment {
-    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
     private ProgramsViewModel mProgramsViewModel;
 
     @Override
@@ -51,7 +50,6 @@ public class ProgramsFragment extends Fragment {
         mProgramsViewModel.getAllPrograms().observe(getViewLifecycleOwner(), new Observer<List<Programs>>() {
             @Override
             public void onChanged(@Nullable final List<Programs> programs) {
-                // Update the cached copy of the words in the adapter.
                 adapter.setPrograms(programs);
             }
         });
@@ -95,5 +93,5 @@ public class ProgramsFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
-    
+
 }

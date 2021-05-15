@@ -61,7 +61,7 @@ public class ExerciseRepsListAdapter extends RecyclerView.Adapter<ExerciseRepsLi
     }
 
     // getItemCount() is called many times, and when it is first called,
-    // mWords has not been updated (means initially, it's null, and we can't return null).
+    // mExercises has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
         if (mExerciseReps != null)

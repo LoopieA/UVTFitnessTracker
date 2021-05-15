@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 data/
+docs/
+
